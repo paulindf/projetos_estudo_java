@@ -1,6 +1,7 @@
 package com.psr.algamoney.api.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +20,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
+	@Value("${token.duracao.segundos}")
+	private int duracaoToken;
+	
+	@Value("${refreshtoken.duracao.segundos}")
+	private int duracaoRefreshToken;
+	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
@@ -26,8 +33,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			.secret("jisdf20384cks8K")
 			.scopes("aaaaa", "bbbbb", "ccccccc")
 			.authorizedGrantTypes("password", "refresh_token")
-			.accessTokenValiditySeconds(20)
-			.refreshTokenValiditySeconds(3600 * 24)
+			.accessTokenValiditySeconds(this.duracaoToken)
+			.refreshTokenValiditySeconds(this.duracaoRefreshToken)
 		;
 	}
 	
