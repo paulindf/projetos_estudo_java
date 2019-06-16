@@ -29,12 +29,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
-			.withClient("cliente_angular")
-			.secret("jisdf20384cks8K")
-			.scopes("aaaaa", "bbbbb", "ccccccc")
-			.authorizedGrantTypes("password", "refresh_token")
-			.accessTokenValiditySeconds(this.duracaoToken)
-			.refreshTokenValiditySeconds(this.duracaoRefreshToken)
+				.withClient("cliente_angular")
+				.secret("cliente_angular@123")
+				.scopes("read", "write")
+				.authorizedGrantTypes("password", "refresh_token")
+				.accessTokenValiditySeconds(this.duracaoToken)
+				.refreshTokenValiditySeconds(this.duracaoRefreshToken)
+			.and()
+				.withClient("cliente_mobile")
+				.secret("cliente_mobile@123")
+				.scopes("read")
+				.authorizedGrantTypes("password", "refresh_token")
+				.accessTokenValiditySeconds(this.duracaoToken)
+				.refreshTokenValiditySeconds(this.duracaoRefreshToken)
 		;
 	}
 	
@@ -60,5 +67,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
 	}
-	
+
+
 }
