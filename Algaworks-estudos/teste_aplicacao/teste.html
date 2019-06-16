@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title>Teste</title>
+	<head>
+	<body>
+		<button id="btnBuscar" onclick="javascript: buscar();">Buscar</button>
+	</body>
+</html>
+<script>
+	function buscar(){
+		var req = new XMLHttpRequest();
+		req.addEventListener("load", imprimirResposta);
+		req.open("GET", "http://localhost:8080/categorias");
+		
+		req.send();
+	}
+	
+	function imprimirResposta(){
+		console.log(this.responseText);
+	}
+</script>
